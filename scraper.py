@@ -41,6 +41,7 @@ def _mycareersfuture(role: str) -> list[dict]:
             f"&limit={MAX_PER_PORTAL}&sortBy=new_posting_date"
         )
         r = httpx.get(url, headers={"User-Agent": ua.random}, timeout=15)
+        r.raise_for_status()
         for item in r.json().get("results", []):
             sal    = item.get("salary", {})
             s_min  = sal.get("minimum", 0)
@@ -59,7 +60,7 @@ def _mycareersfuture(role: str) -> list[dict]:
                 "skills":      skills,
             })
     except Exception as e:
-        print(f"[MCF error] {e}")
+        print(f"[MCF error] {e} (status: {getattr(getattr(e, 'response', None), 'status_code', 'N/A')})")
     print(f"[MCF] {len(jobs)} jobs found for '{role}'")
     return jobs
 

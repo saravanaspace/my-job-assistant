@@ -19,6 +19,9 @@ from resume_parser import parse_resume
 from scraper       import scrape_all
 from ai_generator  import generate_resume, generate_cover_letter
 
+SCORE_MULTIPLIER = 120  # scale word-overlap ratio to a 0-120 range before capping
+MAX_MATCH_SCORE  = 99   # cap displayed score below 100 to avoid false certainty
+
 SESSION: dict = {
     "profile":     None,
     "resume_text": None,
@@ -95,7 +98,7 @@ async def search():
             r.lower() in job["title"].lower()
             for r in SESSION["profile"]["target_roles"]
         ) else 0
-        job["match_score"] = min(round((overlap / max(len(job_words), 1)) * 120 + title_boost, 1), 99)
+        job["match_score"] = min(round((overlap / max(len(job_words), 1)) * SCORE_MULTIPLIER + title_boost, 1), MAX_MATCH_SCORE)
         job["selected"]    = False
 
     min_sal = SESSION["profile"].get("min_salary", 0)

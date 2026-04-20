@@ -88,7 +88,7 @@ Open your browser at **<http://localhost:8000>**.
 
 ## Gemini Free Tier Notes
 
-- **gemini-2.0-flash** (default) — 15 requests/minute, 1 500 requests/day
+- **gemini-2.0-flash** (default) — 15 requests/minute, 1,500 requests/day
 - **gemini-1.5-flash** — also free tier, similar limits
 - **gemini-1.5-pro** — higher quality, lower free quota
 

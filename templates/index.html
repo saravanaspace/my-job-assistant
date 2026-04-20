@@ -741,7 +741,7 @@ async function startSearch() {
       const [pct, msg] = PROGRESS_MSGS[msgIdx++];
       setProgress(pct, msg);
     }
-  }, 10000);
+  }, 8500);
 
   try {
     const res  = await fetch('/api/search', { method: 'POST' });
